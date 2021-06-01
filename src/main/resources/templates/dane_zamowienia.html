@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Dane do zamówienia</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container__header{
+            border-bottom: 1px solid black;
+            padding: 0.7rem 0;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 2rem;
+        }
+        .container__header > a,.btn__logout{
+            border: 1px solid black;
+            margin: 0 1.5rem;
+            text-decoration: none;
+            color: black;
+            padding: 0.5rem 1.5rem;
+            background-color: white;
+        }
+
+        .container__form{
+            margin-left: 5rem;
+        }
+
+        .form__title{
+            font-size: 2rem;
+        }
+
+        .form__customerData{
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .form__customerData input{
+            width: 25rem;
+            font-size: 1.3rem;
+            outline: none;
+        }
+
+        .form__customerData label{
+            margin-left: 0.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .form__customerData > div{
+            width: 25rem;
+            font-size: 1.3rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .form__customerData > div >  div{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form__customerData > div> div > input{
+            width: 10rem;
+        }   
+
+        .form__customerData > div> div:nth-child(2) > label{
+             margin-left: 0;
+        } 
+
+        .form__customerData label
+        {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="container__header">
+            <a href="/sklep">Koszyk</a>
+            <form th:action="@{/logout}" method="post">
+                <input class="btn__logout" type="submit" value="Wyloguj" />
+            </form>
+        </header>
+        <div class="container__form">
+            <div class="form__title">Dane do zamówienia</div>
+            <form action="#" class="form__customerData">
+                <label for="firstname">Imie:</label><input type="text" name="firstname">
+                <label for="lastname">Nazwisko:</label><input type="text" name="lastname">
+                <label for="email">E-mail</label><input type="email" name="email">
+                <label for="street">Ulica</label><input type="text" name="street">
+                <div class="form__numbers">
+                    <div>
+                        <label for="streetNumber">Numer budynku:</label><input type="text" name="streetNumber">
+                    </div>
+                    <div>
+                        <label for="homeNumber">Numer mieszkania:</label><input type="text" name="homeNumber">
+                    </div>
+                    <div>
+                        <label for="postalCode">Kod pocztowy:</label><input type="text" name="postalCode">
+                    </div>
+                </div>
+                <label for="country">Kraj</label><input type="text" name="country">
+                <label for="phoneNumber">Numer telefonu</label><input type="text" name="phoneNumber">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

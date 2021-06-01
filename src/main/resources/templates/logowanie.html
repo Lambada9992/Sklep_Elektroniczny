@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Logowanie</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        .container{
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .wrapp{
+            border: 2px solid rgb(240, 240, 240);
+            height: 50%;
+            width: 40%;
+            border-radius: 3px;
+            box-shadow: 1px 1px 10px 0px  rgb(139, 141, 228);
+        }
+
+        .wrapp__title{
+            padding-top: 2rem;
+            padding-bottom: 1rem;
+            text-align: center;
+            font-size: 2.3rem;
+        }
+        .from__login{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .from__login > input{
+            width: 50%;
+            margin: 1rem 0;
+            line-height: 1.5rem;
+            outline: none;
+            font-size: 1.4rem;
+            border: 1px solid black;
+            height: 2.4rem;
+            padding-left: 1rem;
+        }
+
+        .from__login > .form_submit_btn {
+            width: 40%;
+            font-size: 1.5rem;
+            color: white;
+            text-transform: uppercase;
+            background-color: blue;
+            height: 3.5rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .signin{
+            width: 100%;
+            margin-top: 3rem;
+        }
+
+
+        .signin__title{
+            text-align: center;
+        }
+    
+        .signin__button{
+            border: 2px solid rgb(102, 176, 245);
+            background-color: white;
+            width: 30%;
+            margin: 0 auto;
+            height: 3rem;
+            margin-top: 1rem;
+            font-size: 1.3rem;
+            color: rgb(107, 162, 214);
+            display: block;
+            cursor: pointer;
+        }
+        .red{
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+    <section class="container">
+        <article class="container__wrapp wrapp">
+            <div class="wrapp__title">Logowanie</div>
+            <div class="wrapp__from">
+                <form name="f" th:action="@{/sklep/login}" method="post" class="from__login">
+                    <div th:if="${param.error}" class="red"> Nieprawidłowy login lub hasło</div>
+                    <label for="username"></label><input type="text" placeholder="Login" id="username" name="username">
+                    <label for="password"></label><input type="password" placeholder="Hasło" id=password name="password">
+                    <input type="submit" value="Zaloguj się" class="form_submit_btn">
+                </form>
+            </div>
+            <div class="wrapp__signin signin">
+                <p class="signin__title">Nie masz konta? Zarejestruj się</p>
+                <button class="signin__button">Rejestracja</button>
+            </div>
+        </article>
+    </section>
+</body>
+</html>

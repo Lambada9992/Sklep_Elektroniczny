@@ -1,0 +1,12 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+<h1>MOJA STRONA</h1>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit">POST LOGOUT</input>
+</form>
+
+<h1 th:text="${msg}"/>
+
+</body>
+</html>>
