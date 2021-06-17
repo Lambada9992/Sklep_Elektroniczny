@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pl.sklepelektroniczny.app.model.Uzytkownik;
-import pl.sklepelektroniczny.app.repositories.UserRepository;
+import pl.sklepelektroniczny.app.repositories.UzytkownikRepository;
 
 import java.util.Optional;
 
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class MyUserDetailService implements UserDetailsService {
 
     @Autowired
-    UserRepository userRepository;
+    UzytkownikRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {

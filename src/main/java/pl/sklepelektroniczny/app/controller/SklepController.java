@@ -5,14 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import pl.sklepelektroniczny.app.model.Producent;
 import pl.sklepelektroniczny.app.model.Produkt;
-import pl.sklepelektroniczny.app.model.Typ;
 import pl.sklepelektroniczny.app.repositories.ProduktRepository;
-import pl.sklepelektroniczny.app.repositories.TypRepository;
-import pl.sklepelektroniczny.app.service.SklepService;
+import pl.sklepelektroniczny.app.service.ProduktyService;
 
-import java.sql.SQLSyntaxErrorException;
 import java.util.List;
 
 @Controller
@@ -20,7 +16,7 @@ import java.util.List;
 public class SklepController {
 
     @Autowired
-    SklepService sklepService;
+    ProduktyService sklepService;
 
     @Autowired
     ProduktRepository produktRepository;
@@ -55,7 +51,7 @@ public class SklepController {
                     produkt.getNazwa()+ " "+
                             produkt.getProducent().getNazwa()+" "+
                             produkt.getTyp().getNazwa()+" "+
-                            produkt.getTyp().getRodzic().getNazwa()
+                            produkt.getTyp().getRodzic()
             );
         }
 

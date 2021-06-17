@@ -1,29 +1,26 @@
 package pl.sklepelektroniczny.app.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-
+import java.sql.Timestamp;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "typ")
-public class Typ {
+@Entity
+@Table(name = "cena")
+public class Cena {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_typ;
-    private String nazwa;
+    private int id_cena;
 
-
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rodzic", referencedColumnName = "id_typ")
-    private Typ rodzic;
-
+    private int id_produkt;
+    private float cena;
+    private Timestamp od_daty;
+    private Timestamp do_daty;
 }

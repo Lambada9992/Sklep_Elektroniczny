@@ -1,6 +1,6 @@
 package pl.sklepelektroniczny.app.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,22 +8,18 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "typ")
-public class Typ {
+@Entity
+@Table(name = "parametr")
+public class Parametr {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_typ;
+    private int id_parametr;
+
     private String nazwa;
-
-
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "rodzic", referencedColumnName = "id_typ")
-    private Typ rodzic;
-
+    private Boolean slownikowany;
 }

@@ -26,7 +26,6 @@ public class Produkt {
     @JoinColumn(name = "id_typ",referencedColumnName = "id_typ")
     private Typ typ;
 
-    private int ilosc;
     private String opis;
 
 
