@@ -1,5 +1,6 @@
 package pl.sklepelektroniczny.app.controller;
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sklepelektroniczny.app.model.Produkt;
 import pl.sklepelektroniczny.app.repositories.ProduktRepository;
 import pl.sklepelektroniczny.app.service.ProduktyService;
+import pl.sklepelektroniczny.app.service.UslugiService;
 
 import java.util.List;
 
@@ -16,14 +18,24 @@ import java.util.List;
 public class SklepController {
 
     @Autowired
-    ProduktyService sklepService;
+    ProduktyService produktyService;
 
     @Autowired
-    ProduktRepository produktRepository;
+    UslugiService uslugiService;
 
     @GetMapping
-    public String produkty(){
+    public String produkty(Model model){
+        model.addAttribute("logged",uslugiService.isLoggedIn());
+        model.addAttribute("kategorie",produktyService.getPodTypyDeep2(null));
+        model.addAttribute("produkty", produktyService.getAllProdukty());
+        
+        model.addAttribute("nadKategorie",null);
         return "produkty";
+    }
+
+    @GetMapping("/koszyk")
+    public String koszyk(Model model){
+        return "moja";
     }
 
     @GetMapping("/dane")
@@ -42,20 +54,5 @@ public class SklepController {
         return "moja";
     }
 
-    @GetMapping("/lista")
-    public String lista(){
-
-        List<Produkt> lista = produktRepository.findAll();
-        for(Produkt produkt : lista){
-            System.out.println(//uwazac na null pointer exception
-                    produkt.getNazwa()+ " "+
-                            produkt.getProducent().getNazwa()+" "+
-                            produkt.getTyp().getNazwa()+" "+
-                            produkt.getTyp().getRodzic()
-            );
-        }
-
-        return "moja";
-    }
 
 }

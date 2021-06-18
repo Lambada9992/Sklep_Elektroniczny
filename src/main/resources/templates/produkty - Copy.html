@@ -114,14 +114,37 @@
         <nav class="container__nav nav">
             <div class="nav__menu menu">
                 <ul class="menu__list">
-                    <li th:each="kategoria: ${kategorie}">
-                        <span th:text="${kategoria.getTypNazwa()}"><i class="fas fa-caret-down"></i></span>
+                    <li>
+                        <span>Komputery <i class="fas fa-caret-down"></i></span>
                         <div>
-                            <ul th:each="podk: ${kategoria.getPodTypy()}">
-                                <li th:text="${podk.getTypNazwa()}"></li>
+                            <ul>
+                                <li>Laptopy</li>
+                                <li>Monitory</li>
+                                <li>Myszki</li>
+                                <li>Klawiatury</li>
                             </ul>
                         </div>
                     </li>
+                    <li>
+                        <span>RTV i AGD <i class="fas fa-caret-down"></i></span>
+                        <div>
+                            <ul>
+                                <li>Lodówki</li>
+                                <li>Pralki</li>
+                                <li>Odkurzacze</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <span>Telefony i akcesoria <i class="fas fa-caret-down"></i></span>
+                        <div>
+                            <ul>
+                                <li>Smartphony</li>
+                                <li>Smartwatche</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>Inne...</li>
                 </ul>
             </div>
         </nav>

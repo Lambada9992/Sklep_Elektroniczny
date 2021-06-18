@@ -1,5 +1,6 @@
 package pl.sklepelektroniczny.app.service;
 
+import com.sun.istack.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.sklepelektroniczny.app.inModels.ProduktExtFiltr;
@@ -108,12 +109,12 @@ public class ProduktyService {
         return result;
     }
 
-    public List<TypTree> getPodTypyDeep2(String typNazwa) {
+    public List<TypTree> getPodTypyDeep2(Integer id_typ) {
         List<TypTree> result = new ArrayList<>();
-        if (typNazwa == null) {
+        if (id_typ == null) {
             result.addAll(getPodTypy((Typ) null));
         } else {
-            Typ typ = typRepository.findByNazwa(typNazwa).orElse(null);
+            Typ typ = typRepository.findById(id_typ).orElse(null);
             if (typ != null) {
                 result.addAll(getPodTypy(typ));
             } else {

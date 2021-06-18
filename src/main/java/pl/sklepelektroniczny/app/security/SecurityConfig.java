@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/sklep", "/sklep/moja", "/sklep/lista", "/api/test", "/api/logged").permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin().loginPage("/sklep/login").permitAll()
+                .and().formLogin().loginPage("/sklep/login").defaultSuccessUrl("/sklep").permitAll()
                 .and().logout().logoutSuccessUrl("/sklep").permitAll();
 
     }
