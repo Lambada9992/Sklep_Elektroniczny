@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class DaneZamowienia {
-    String miasto;
-    String ulica;
-    String kodPocztowy;
+    private String miasto;
+    private String ulica;
+    private String kodPocztowy;
 }

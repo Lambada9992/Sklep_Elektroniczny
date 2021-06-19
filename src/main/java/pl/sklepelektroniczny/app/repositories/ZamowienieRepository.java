@@ -14,6 +14,6 @@ public interface ZamowienieRepository extends JpaRepository<Zamowienie, Integer>
     @Query(value = "UPDATE zamowienie z SET z.id_status = ?2 WHERE z.id_zamowienia = ?1", nativeQuery = true)
     void updateStatus(int id_zamowienia, int id_status);
 
-    @Query(value = "SELECT * FROM zamowienie z WHERE z.id_uzytkownik = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM zamowienie z WHERE z.id_uzytkownik = ?1 ORDER BY z.data_zamowienia DESC", nativeQuery = true)
     List<Zamowienie> zamowieniaUzytkownika(int id_uzytkownik);
 }

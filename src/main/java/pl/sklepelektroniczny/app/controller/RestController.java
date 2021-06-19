@@ -3,13 +3,11 @@ package pl.sklepelektroniczny.app.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sklepelektroniczny.app.inModels.DaneZamowienia;
-import pl.sklepelektroniczny.app.inModels.ProduktExtFiltr;
 import pl.sklepelektroniczny.app.model.Typ;
 import pl.sklepelektroniczny.app.outModels.*;
 import pl.sklepelektroniczny.app.service.ProduktyService;
 import pl.sklepelektroniczny.app.service.UslugiService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
@@ -32,16 +30,16 @@ public class RestController {
         return produktyService.getAllProdukty();
     }
 
-    @RequestMapping("/produktyFilrt")
-    public List<ProduktExt> produktyFiltrowane() {
-        ProduktExtFiltr filtr = new ProduktExtFiltr();
-        List<ParametrFix> parametry = new ArrayList<>();
-        parametry.add(new ParametrFix("Pamięć wewnętrzna", 3, Integer.toString(64)));
-        parametry.add(new ParametrFix("Pamięć wewnętrzna", 3, Integer.toString(128)));
-
-        filtr.setParametry(parametry);
-        return produktyService.getAllProdukty(filtr);
-    }
+//    @RequestMapping("/produktyFilrt")
+//    public List<ProduktExt> produktyFiltrowane() {
+//        ProduktExtFiltr filtr = new ProduktExtFiltr();
+//        List<ParametrFix> parametry = new ArrayList<>();
+//        parametry.add(new ParametrFix("Pamięć wewnętrzna", 3, Integer.toString(64)));
+//        parametry.add(new ParametrFix("Pamięć wewnętrzna", 3, Integer.toString(128)));
+//
+//        filtr.prepare(parametry);
+//        return produktyService.getAllProdukty(filtr);
+//    }
 
     @RequestMapping("/koszykAdd")
     public boolean dodanieProduktuDoKoszyka() {

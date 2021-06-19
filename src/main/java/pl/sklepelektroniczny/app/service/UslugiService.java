@@ -59,6 +59,7 @@ public class UslugiService {
             zamowienie.setSuma((float) zp.stream().mapToDouble(p -> p.getCena() * p.getIlosc()).sum());
             zamowienie.setStatus(slownikStatusowRepository
                     .getById(zamowienie.getZamowienie().getId_status()).getStatus_zamowienia());
+            zamowienie.setAnulowalne(czyMoznaAnulowacZamowienie(zamowienie.getId_zamowienia()));
         });
 
         return result;
@@ -169,6 +170,13 @@ public class UslugiService {
         KoszykExt result = new KoszykExt(koszykPozycja);
 
         return result;
+    }
+
+    public int getKoszykIlosc() {
+        KoszykExt koszyk = getKoszyk();
+        if (koszyk == null) return 0;
+        int ilosc = koszyk.getPozycje().stream().mapToInt(p -> p.getIlosc()).sum();
+        return ilosc;
     }
 
     @Transactional

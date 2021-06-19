@@ -56,22 +56,23 @@
             padding: 0.5rem 1.5rem;
         }
 
-        .container__nav{
+        .container__nav {
             grid-area: menu;
             border-right: 1px solid black;
         }
-        .menu{
+
+        .menu {
             margin-top: 25%;
         }
 
-        .menu__list{
-          display: flex;
-          flex-direction: column;
-          margin-left: 1.7rem;
-          list-style-type: none;
+        .menu__list {
+            display: flex;
+            flex-direction: column;
+            margin-left: 1.7rem;
+            list-style-type: none;
         }
 
-        .menu__list > li{
+        .menu__list > li {
             font-size: 1.2rem;
             font-weight: bold;
             margin-top: 0.3rem;
@@ -91,7 +92,7 @@
         }
 
         @media (min-width: 1000px) {
-            .container{
+            .container {
                 grid-template-columns: 14% 86%;
             }
         }
@@ -100,14 +101,20 @@
 <body>
     <div class="container">
         <header class="container__header">
-            <input type="text" placeholder="Szukaj produktu" class="search">
             <div>
-                <a th:if="${logged}" href="/sklep/koszyk">Koszyk</a>
+                <a th:href="@{/sklep}">
+                    <button class="title">Strona głowna</button>
+                </a>
+                <input type="text" placeholder="Szukaj produktu" class="search">
+            </div>
+            <div class="wrapper">
+                <a th:if="${logged}" href="/sklep/koszyk" th:text="'Koszyk: '+ ${koszykIlosc}"></a>
+                <a th:if="${logged}" href="/sklep/zamowienia"> Zamówienia</a>
                 <form th:unless="${logged}" th:action="@{/login}" method="post">
-                    <input class="btn__logout" type="submit" value="Zaloguj" />
+                    <input class="btn__logout" type="submit" value="Zaloguj"/>
                 </form>
                 <form th:if="${logged}" th:action="@{/logout}" method="post">
-                    <input class="btn__logout" type="submit" value="Wyloguj" />
+                    <input class="btn__logout" type="submit" value="Wyloguj"/>
                 </form>
             </div>
         </header>

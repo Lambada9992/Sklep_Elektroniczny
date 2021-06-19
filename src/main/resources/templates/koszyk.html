@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+
+        }
+
+        .container__header {
+            border-bottom: 1px solid black;
+            padding: 0.7rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            grid-area: header;
+        }
+
+
+        .search {
+            padding-left: 1rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            outline: none;
+            margin: 0 0 0 1.5rem;
+        }
+
+        .container__header > div {
+            display: flex;
+        }
+
+        .wrapper > a, .btn__logout, .btn__basket, .btn {
+            border: 1px solid black;
+            margin: 0 1.5rem;
+            text-decoration: none;
+            color: black;
+            padding: 0.5rem 1.5rem;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .title {
+            margin-left: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background-color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+
+        .btn__basket {
+            margin: 0;
+            margin-left: 80%;
+        }
+
+        .container__box {
+            width: 70%;
+            margin: 0 auto;
+            font-size: 1.6rem;
+        }
+
+        .container__box > div {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .container__box > div > span {
+            display: block;
+            text-align: center;
+        }
+
+        .box__summary > span {
+            width: 25%;
+        }
+
+        .box__basket > sapn {
+            width: calc(100% / 7);
+        }
+
+        .box__summary {
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgb(39, 39, 39);
+            padding-bottom: 10px;
+        }
+
+        .box__basket {
+            margin-bottom: 5px;
+        }
+
+        .box_button {
+            margin-top: 80px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="container__header">
+        <div>
+            <a th:href="@{/sklep}">
+                <button class="title">Strona głowna</button>
+            </a>
+            <input type="text" placeholder="Szukaj produktu" class="search">
+        </div>
+        <div class="wrapper">
+            <a th:if="${logged}" href="/sklep/zamowienia"> Zamówienia</a>
+            <form th:unless="${logged}" th:action="@{/login}" method="post">
+                <input class="btn__logout" type="submit" value="Zaloguj"/>
+            </form>
+            <form th:if="${logged}" th:action="@{/logout}" method="post">
+                <input class="btn__logout" type="submit" value="Wyloguj"/>
+            </form>
+        </div>
+    </header>
+    <section class="container__box box">
+        <div class="box__summary">
+            <span>Koszyk</span>
+            <span th:text="'Suma: '+${koszyk.suma}+'zł'"></span>
+        </div>
+        <div th:each="pozycja: ${koszyk.pozycje}" class="box__basket">
+            <span th:text="'id: '+${pozycja.id_produkt}">1</span>
+            <span th:text="${pozycja.nazwa}">Nazwa produktu</span>
+            <span th:text="${pozycja.cena}+'zł'">cena</span>
+            <span th:text="'x'+${pozycja.ilosc}">ilosc</span>
+            <span th:text="${pozycja.ilosc * pozycja.cena} + 'zł'">suma</span>
+            <a th:href="@{/sklep/koszyk/dodaj/{id_produkt}(id_produkt=${pozycja.id_produkt})}">
+                <button class="btn">Dodaj</button>
+            </a>
+            <a th:href="@{/sklep/koszyk/usun/{id_produkt}(id_produkt=${pozycja.id_produkt})}">
+                <button class="btn">Odejmij</button>
+            </a>
+        </div>
+        <div class="box_button">
+            <a th:href="@{/sklep/zamawianie}">
+                <button class="btn__basket">Złóż zamówienie</button>
+            </a>
+        </div>
+    </section>
+</div>
+</body>
+</html>

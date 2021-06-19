@@ -17,6 +17,7 @@ public class ZamowienieExt {
     private List<ZamowieniePozycja> pozycje;
     private float suma = 0;
     private String status;
+    private boolean anulowalne;
 
     public ZamowienieExt(Zamowienie zamowienie) {
         this.zamowienie = zamowienie;

@@ -1,6 +1,5 @@
 package pl.sklepelektroniczny.app.service;
 
-import com.sun.istack.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.sklepelektroniczny.app.inModels.ProduktExtFiltr;
@@ -161,6 +160,7 @@ public class ProduktyService {
 
             typy.forEach(_typ -> {
                 proukty.addAll(produktRepository.getAllProduktyWhere(_typ.getId_typ()));
+
             });
         } else {
             proukty.addAll(getAllProdukty().stream().map(produktExt -> produktExt.getProdukt()).collect(Collectors.toList()));
@@ -176,6 +176,7 @@ public class ProduktyService {
                             pp.getProduktParametr().getParametr().getId_parametr()) {
                         if (!p.getWartosc().contains(pp.getWartosc())) {
                             p.getWartosc().add(pp.getWartosc());
+                            p.getActive().add(false);
                         }
                         found.set(true);
                     }
@@ -186,6 +187,7 @@ public class ProduktyService {
                     nowyParametr.setParametrNazwa(pp.getProduktParametr().getParametr().getNazwa());
                     nowyParametr.setParametrId(pp.getProduktParametr().getParametr().getId_parametr());
                     nowyParametr.getWartosc().add(pp.getWartosc());
+                    nowyParametr.getActive().add(false);
                     parametry.add(nowyParametr);
                 }
             });
@@ -208,4 +210,5 @@ public class ProduktyService {
         return result;
     }
 
+    //private List<Producent producents>
 }

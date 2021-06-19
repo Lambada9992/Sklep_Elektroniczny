@@ -15,6 +15,7 @@ public class ParametrFix {
     private String parametr;
     private int id_parametr;
     private String wartosc;
+    private boolean activeFilter = false;
 
     public ParametrFix(ProduktParametr produktParametr) {
         this.produktParametr = produktParametr;

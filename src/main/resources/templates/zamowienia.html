@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+
+        }
+
+
+        .container__header {
+            border-bottom: 1px solid black;
+            padding: 0.7rem 0;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            grid-area: header;
+        }
+
+        .search {
+            padding-left: 1rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            outline: none;
+            margin: 0 0 0 1.5rem;
+        }
+
+        .container__header > div {
+            display: flex;
+        }
+
+        .wrapper > a, .btn__logout {
+            border: 1px solid black;
+            margin: 0 1.5rem;
+            text-decoration: none;
+            color: black;
+            padding: 0.5rem 1.5rem;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .title {
+            margin-left: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background-color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .container__box {
+            width: 70%;
+            margin: 0 auto;
+        }
+
+        table {
+            border: 1px solid black;
+            width: 100%;
+            font-size: 1.7rem;
+            text-align: center;
+            background-color: black;
+            margin-bottom: 20px;
+        }
+
+        table td, th {
+            margin: 0;
+            border: 1px solid white;
+            background-color: white;
+            width: 25%;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <header class="container__header">
+        <div>
+            <a th:href="@{/sklep}">
+                <button class="title">Strona głowna</button>
+            </a>
+            <input type="text" placeholder="Szukaj produktu" class="search">
+        </div>
+        <div class="wrapper">
+            <a th:if="${logged}" href="/sklep/koszyk" th:text="'Koszyk: '+ ${koszykIlosc}"></a>
+            <form th:unless="${logged}" th:action="@{/login}" method="post">
+                <input class="btn__logout" type="submit" value="Zaloguj"/>
+            </form>
+            <form th:if="${logged}" th:action="@{/logout}" method="post">
+                <input class="btn__logout" type="submit" value="Wyloguj"/>
+            </form>
+        </div>
+    </header>
+    <section class="container__box">
+        <table th:each="zamowienie: ${zamowienia}">
+            <thead>
+            <tr>
+                <th th:text="'Id Zamówienia: '+ ${zamowienie.id_zamowienia}"></th>
+                <th th:text="'Kwota: '+${zamowienie.suma} + ' zł'"></th>
+                <th th:text="'Status: ' + ${zamowienie.status}"></th>
+                <th><a th:if="${zamowienie.anulowalne}"
+                       th:href="@{zamowienia/anulowanie/{id_zamowienia}(id_zamowienia=${zamowienie.id_zamowienia})}">Anuluj</a>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pozycja: ${zamowienie.pozycje}">
+                <td th:text="'Id Produktu: '+${pozycja.id_produkt}"></td>
+                <td th:text="${pozycja.nazwa}"></td>
+                <td th:text="${pozycja.cena} + ' zł'"></td>
+                <td th:text="'ilość: '+${pozycja.ilosc}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</div>
+</body>
+</html>

@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //super.configure(http);
         http.authorizeRequests()
-                .antMatchers("/sklep", "/sklep/moja", "/sklep/lista", "/api/test", "/api/logged").permitAll()
+                .antMatchers("/sklep", "/sklep/produkt/{id_produkt}").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/sklep/login").defaultSuccessUrl("/sklep").permitAll()
                 .and().logout().logoutSuccessUrl("/sklep").permitAll();

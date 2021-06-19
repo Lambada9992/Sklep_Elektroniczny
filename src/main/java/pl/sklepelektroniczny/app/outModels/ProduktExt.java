@@ -20,6 +20,7 @@ public class ProduktExt {
     @JsonIgnore
     private Produkt produkt;
 
+    private int id_produkt;
     private String nazwa;
     private String opis;
     private String producent;
@@ -29,6 +30,7 @@ public class ProduktExt {
 
     public ProduktExt(Produkt produkt) {
         this.produkt = produkt;
+        this.id_produkt = produkt.getId_produkt();
         this.nazwa = produkt.getNazwa();
         this.opis = produkt.getOpis();
         this.typ = produkt.getTyp().getNazwa();
@@ -38,9 +40,9 @@ public class ProduktExt {
     public boolean checkFiltr(ProduktExtFiltr pef) {
 
         if (pef == null) return true;
-        if (pef.getTyp() != null) {
-            if (pef.getTyp().getId_typ() != produkt.getTyp().getId_typ()) return false;
-        }
+//        if (pef.getTyp() != null) {
+//            if (pef.getTyp().getId_typ() != produkt.getTyp().getId_typ()) return false;
+//        }
         if (pef.getOd_cena() != -1) {
             if (cena < pef.getOd_cena()) return false;
         }
@@ -50,27 +52,28 @@ public class ProduktExt {
 
         List<Integer> id_param = new ArrayList<>();
         List<Boolean> satisfied = new ArrayList<>();
+//TODO dO naprawy
 
-        pef.getParametry().forEach(pf -> {
-            int index;
-            if (id_param.contains(pf.getId_parametr())) {
-                index = id_param.indexOf(pf.getId_parametr());
-            } else {
-                id_param.add(pf.getId_parametr());
-                index = id_param.indexOf(pf.getId_parametr());
-                satisfied.add(false);
-            }
-
-            if (!satisfied.get(index)) {
-                this.parametry.forEach(pp -> {
-                    if (pp.getId_parametr() == pf.getId_parametr()) {
-                        if (pp.getWartosc().equals(pf.getWartosc())) {
-                            satisfied.set(index, true);
-                        }
-                    }
-                });
-            }
-        });
+//        pef.getParametry().forEach(pf -> {
+//            int index;
+//            if (id_param.contains(pf.getId_parametr())) {
+//                index = id_param.indexOf(pf.getId_parametr());
+//            } else {
+//                id_param.add(pf.getId_parametr());
+//                index = id_param.indexOf(pf.getId_parametr());
+//                satisfied.add(false);
+//            }
+//
+//            if (!satisfied.get(index)) {
+//                this.parametry.forEach(pp -> {
+//                    if (pp.getId_parametr() == pf.getId_parametr()) {
+//                        if (pp.getWartosc().equals(pf.getWartosc())) {
+//                            satisfied.set(index, true);
+//                        }
+//                    }
+//                });
+//            }
+//        });
 
         for (Boolean var : satisfied) {
             if (var == false) return false;

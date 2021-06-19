@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pl.sklepelektroniczny.app.model.Typ;
-import pl.sklepelektroniczny.app.outModels.ParametrFix;
+import pl.sklepelektroniczny.app.outModels.ParametrExt;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +14,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProduktExtFiltr {
-    Typ typ = null;
     float od_cena = -1;
     float do_cena = -1;
-    List<ParametrFix> parametry = new ArrayList<>();
+    private String test;
+    List<ParametrExt> parametry = new ArrayList<>();
+
+    public void prepare(List<ParametrExt> par) {
+        this.parametry = par;
+    }
+
+    public void a() {
+    }
 }

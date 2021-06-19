@@ -20,6 +20,8 @@ public class ParametrExt {
     private Parametr parametr;
     private String parametrNazwa;
     private int parametrId;
-    private List<String> Wartosc = new ArrayList<>();
+    private List<String> wartosc = new ArrayList<>();
+    private List<Boolean> active = new ArrayList<>();
+
 
 }
