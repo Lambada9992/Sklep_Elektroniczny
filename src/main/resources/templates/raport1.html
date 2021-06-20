@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Raporty</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 8fr;
+            grid-template-rows: 70px 1fr;
+            min-height: 100vh;
+            grid-template-areas: 
+            'menu opisy'
+            'menu box';
+        }
+
+        .container__menu {
+            border: 1px solid black;
+            grid-area: menu;
+            border-bottom: none;
+        }
+
+        .container__menu a {
+            display: block;
+            text-decoration: none;
+            padding-left: 10px;
+            color: black;
+            font-size: 20px;
+            cursor: pointer;
+            padding-bottom: 15px;
+        }
+
+        .container__menu a:nth-child(1) {
+            padding-top: 70px;
+        }
+
+        form {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border: 1px solid black;
+            grid-area: opisy;
+            border-left: none;
+        }
+
+        .btn {
+            border: 1px solid black;
+            margin: 0 1.5rem;
+            text-decoration: none;
+            color: black;
+            padding: 0.5rem 1.5rem;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .opis {
+            font-size: 20px;
+            display: block;
+        }
+
+        .opis:nth-child(5) {
+            font-size: 18px;
+            line-height: 20px;
+        }
+
+        .container__box {
+            grid-area: box;
+        }
+
+
+        table {
+            border: 1px solid black;
+            background-color: black;
+            margin: 0 auto;
+            margin-top: 2rem;
+            font-size: 20px;
+        }
+
+        table th, table td {
+            background-color: white;
+            padding: 10px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="container__menu">
+        <a th:href="@{/raport}">Raporty</a>
+        <a th:href="@{/raport/1}">Raport 1</a>
+        <a th:href="@{/raport/2}">Raport 2</a>
+        <a th:href="@{/raport/3}">Raport 3</a>
+    </div>
+    <div class="container__opisy">
+        <form action="#" class="form__customerData"
+              th:action="@{/raport/1}" th:object="${raport}" method="post">
+            <label>Od Daty: <input type="text" th:field="*{od_daty}" class="opis"
+                                   placeholder="2018-09-01 09:01:16"></label>
+            <label>Do daty: <input type="text" th:field="*{do_daty}" class="opis"
+                                   placeholder="2022-09-01 09:01:16"></label>
+            <label>Producent: <input type="text" th:field="*{producent}" class="opis" placeholder="wpisz.."></label>
+            <label>Typ: <input type="text" th:field="*{typ}" class="opis" placeholder="wpisz.."></label>
+            <label>Tryb(normalny/miesiace/kwartaly): <input type="text" th:field="*{tryb}" class="opis"
+                                                            placeholder="wpisz.."></label>
+            <input class="btn" type="submit" value="Filtruj">
+        </form>
+    </div>
+    <div class="container__box">
+        <table>
+            <thead>
+            <tr>
+                <th>Id Produktu</th>
+                <th>Nazwa</th>
+                <th>Typ</th>
+                <th>Producent</th>
+                <th>Cena</th>
+                <th>Ilość</th>
+                <th>Suma</th>
+                <th>Rok</th>
+                <th>miesiąc/Kwartał</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pozycja: ${dane}">
+                <td th:text="${pozycja.id_produkt}">nazwa1</td>
+                <td th:text="${pozycja.nazwaProduktu}">nazwa2</td>
+                <td th:text="${pozycja.typ}">nazwa3</td>
+                <td th:text="${pozycja.nazwaProducent}">nazwa4</td>
+                <td th:text="${pozycja.cena}">nazwa5</td>
+                <td th:text="${pozycja.ilosc}">nazwa6</td>
+                <td th:text="${pozycja.suma}">nazwa7</td>
+                <td th:text="${pozycja.rok}">nazwa8</td>
+                <td th:text="${pozycja.miesiac_kwartal}">nazwa9</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

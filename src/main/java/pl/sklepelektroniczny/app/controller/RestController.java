@@ -5,12 +5,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sklepelektroniczny.app.inModels.DaneZamowienia;
 import pl.sklepelektroniczny.app.model.Typ;
 import pl.sklepelektroniczny.app.outModels.*;
-import pl.sklepelektroniczny.app.repositories.CenaRepository;
+import pl.sklepelektroniczny.app.raportModel.Raport1out;
+import pl.sklepelektroniczny.app.raportModel.Raport2out;
+import pl.sklepelektroniczny.app.raportModel.Raport3out;
 import pl.sklepelektroniczny.app.service.ProduktyService;
 import pl.sklepelektroniczny.app.service.RaportService;
 import pl.sklepelektroniczny.app.service.UslugiService;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
@@ -102,10 +103,19 @@ public class RestController {
         return produktyService.getAllParametr(null);
     }
 
-    @RequestMapping("/testy")
-    public String test(){
-        raportService.generateRaport1(Timestamp.valueOf("2018-09-01 09:01:16"),Timestamp.valueOf("2022-09-01 09:01:16"),null,null);
-        return "done";
+    @RequestMapping("/testy1")
+    public List<Raport1out> test1() {
+        return raportService.generateRaport1("2018-09-01 09:01:16", "2022-09-01 09:01:16", "", "", "normalny");
+    }
+
+    @RequestMapping("/testy2")
+    public List<Raport2out> test2() {
+        return raportService.generateRaport2("2018-09-01 09:01:16", "2022-09-01 09:01:16", "", "Sma");
+    }
+
+    @RequestMapping("/testy3")
+    public List<Raport3out> test3() {
+        return raportService.generateRaport3("2018-09-01 09:01:16", "2022-09-01 09:01:16", "", "", "typy");
     }
 
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Raporty</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .container {
+            min-height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container__box {
+            display: flex;
+            flex-direction: column;
+            padding: 70px 200px;
+            box-shadow: 1px 1px 10px 0px rgb(139, 141, 228);
+        }
+
+        .link {
+            color: black;
+            font-size: 34px;
+            padding: 20px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="container__box">
+        <a class="link" th:href="@{/raport/1}">Raport1</a>
+        <a class="link" th:href="@{/raport/2}">Raport2</a>
+        <a class="link" th:href="@{/raport/3}">Raport3</a>
+    </div>
+</div>
+</body>
+</html>
