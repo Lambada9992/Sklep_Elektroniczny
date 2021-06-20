@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import pl.sklepelektroniczny.app.repositories.UzytkownikRepository;
 
+import javax.persistence.EntityManager;
+
 @SpringBootApplication
 @EnableJpaRepositories(basePackageClasses = UzytkownikRepository.class)
 public class AppApplication {

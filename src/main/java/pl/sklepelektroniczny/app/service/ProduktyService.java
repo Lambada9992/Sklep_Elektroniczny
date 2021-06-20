@@ -15,6 +15,7 @@ import pl.sklepelektroniczny.app.repositories.ProduktParametrRepository;
 import pl.sklepelektroniczny.app.repositories.ProduktRepository;
 import pl.sklepelektroniczny.app.repositories.TypRepository;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -31,6 +32,7 @@ public class ProduktyService {
     ProduktParametrRepository produktParametrRepository;
     @Autowired
     TypRepository typRepository;
+
 
     public ProduktExt getProdukt(int id_produkt) {
         ProduktExt result = null;

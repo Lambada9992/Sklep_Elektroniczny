@@ -36,6 +36,7 @@
             grid-area: header;
         }
 
+
         .search{
             padding-left: 1rem;
             border-radius: 50px;
@@ -48,12 +49,28 @@
             display: flex;
         }
 
-        .container__header > div > a{
+        .wrapper > a, .btn__logout, .product > button, #btn__filtry {
             border: 1px solid black;
             margin: 0 1.5rem;
             text-decoration: none;
             color: black;
             padding: 0.5rem 1.5rem;
+            background-color: white;
+            cursor: pointer;
+        }
+
+
+        .title {
+            margin-left: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background-color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #btn__filtry {
+            margin: 0 0;
         }
 
         .container__nav {
@@ -71,6 +88,19 @@
             margin-left: 1.7rem;
             list-style-type: none;
         }
+
+        #form__filters {
+            margin-left: 1.7rem;
+            font-size: 1.2rem;
+            margin-top: 0.3rem;
+            cursor: pointer;
+        }
+
+        #form__filters label {
+            margin-left: 0.8rem;
+            cursor: pointer;
+        }
+
 
         .menu__list > li {
             font-size: 1.2rem;
@@ -90,6 +120,22 @@
             margin-top: 0.4rem;
             cursor: pointer;
         }
+
+        .product {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 25px 0;
+            border-bottom: 1px solid black;
+        }
+
+        .product > span, .product > a {
+            width: 25%;
+            text-align: center;
+            text-decoration: none;
+            color: black;
+        }
+
 
         @media (min-width: 1000px) {
             .container {
@@ -131,7 +177,39 @@
                     </li>
                 </ul>
             </div>
+            <div class="nav__filters">
+                <form id="form__filters" action="#" th:action="@{/sklep}" th:object="${filtry}" method="post">
+                    <input type="text" th:field="*{od_cena}"/>
+                    <input type="text" th:field="*{do_cena}"/>
+                    <input type="hidden" th:field="*{test}" th:value="a"/>
+                    <div th:each="parametr, iParametr: *{parametry}">
+                        <input type="hidden" th:name="${filtry.parametry[__${iParametr.index}__].parametrNazwa}"
+                               th:value="${filtry.parametry[__${iParametr.index}__].parametrNazwa}"/>
+                        <h4 th:text="${parametr.getParametrNazwa()}"></h4>
+                        <div th:each="wartosc, iWartosc: ${parametr.getWartosc()}">
+                            <label th:for="${wartosc}">
+                                <span th:text="${wartosc}" th:remove="tag"></span>
+                                <input value="aa" type="checkbox" th:name="${wartosc}" th:id="${wartosc}"
+                                       th:checked="${parametr.active[__${iWartosc.index}__]}"/>
+                            </label>
+                        </div>
+                    </div>
+                    <input id="btn__filtry" type="submit" value="Filtruj">
+                </form>
+            </div>
         </nav>
+        <div class="container__productsList">
+            <div th:each="product: ${produkty}" class="product">
+                <span th:text="'id: '+${product.getId_produkt()}"></span>
+                <a th:href="@{/sklep/produkt/{id_produkt}(id_produkt=${product.id_produkt})}">
+                    <span th:text="${product.getNazwa()}"></span>
+                </a>
+                <span th:text="${product.getCena()} + ' zł'"></span>
+                <a th:href="@{/sklep/dodaj/{id_produkt}(id_produkt=${product.id_produkt})}">
+                    <button>Dodaj do koszyka</button>
+                </a>
+            </div>
+        </div>
     </div>
 </body>
 </html>

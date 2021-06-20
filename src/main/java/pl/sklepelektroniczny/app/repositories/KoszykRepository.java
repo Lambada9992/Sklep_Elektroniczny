@@ -33,4 +33,6 @@ public interface KoszykRepository extends JpaRepository<Koszyk, Integer> {
     void deleteCalyKoszykUzytkownika(int id_uzytkownik);
 
 
+
+
 }

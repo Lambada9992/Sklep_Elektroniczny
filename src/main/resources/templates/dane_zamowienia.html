@@ -13,20 +13,60 @@
             box-sizing: border-box;
             font-family: 'Roboto', sans-serif;
         }
+
+        .container{
+
+        }
+
         .container__header{
             border-bottom: 1px solid black;
             padding: 0.7rem 0;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 2rem;
+            grid-area: header;
         }
-        .container__header > a,.btn__logout{
+
+        .title{
+            margin-left: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background-color: white;
+            border: none;
+        }
+
+
+        .search{
+            padding-left: 1rem;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            outline: none;
+            margin: 0 0 0 1.5rem;
+        }
+
+        .container__header > div{
+            display: flex;
+        }
+        .wrapper > a, .btn__logout, .btn__basket{
             border: 1px solid black;
             margin: 0 1.5rem;
             text-decoration: none;
             color: black;
             padding: 0.5rem 1.5rem;
             background-color: white;
+        }
+
+        .title{
+            margin-left: 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background-color: white;
+            border: none;
+        }
+
+        .wrapper > a {
+
         }
 
         .container__form{
@@ -81,36 +121,94 @@
         {
             margin-top: 1rem;
         }
+
+        .btn__basket {
+            margin: 0;
+            margin-left: 80%;
+        }
+
+        .container__box {
+            width: 70%;
+            margin: 0 auto;
+            font-size: 1.6rem;
+        }
+
+        .container__box > div {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .container__box > div > span {
+            display: block;
+            text-align: center;
+        }
+
+        .box__summary > span {
+            width: 25%;
+        }
+
+        .box__basket > sapn {
+            width: calc(100% / 5);
+        }
+
+        .box__summary {
+            font-weight: 700;
+            margin-bottom: 10px;
+            border-bottom: 1px solid rgb(39, 39, 39);
+            padding-bottom: 10px;
+        }
+
+        .box__basket{
+            margin-bottom: 5px;
+        }
+
+        .box_button {
+            margin-top: 80px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header class="container__header">
-            <a href="/sklep">Koszyk</a>
-            <form th:action="@{/logout}" method="post">
-                <input class="btn__logout" type="submit" value="Wyloguj" />
-            </form>
+            <div>
+                <a th:href="@{/sklep}"><button class="title">Strona głowna</button></a>
+                <input type="text" placeholder="Szukaj produktu" class="search">
+            </div>
+            <div class="wrapper">
+                <a th:if="${logged}" href="/sklep/koszyk" th:text="'Koszyk: '+ ${koszykIlosc}"></a>
+                <a th:if="${logged}" href="/sklep/zamowienia"> Zamówienia</a>
+                <form th:unless="${logged}" th:action="@{/login}" method="post">
+                    <input class="btn__logout" type="submit" value="Zaloguj" />
+                </form>
+                <form th:if="${logged}" th:action="@{/logout}" method="post">
+                    <input class="btn__logout" type="submit" value="Wyloguj" />
+                </form>
+            </div>
         </header>
+        <section class="container__box box">
+            <div class="box__summary">
+                <span>Koszyk</span>
+                <span th:text="'Suma: ' + ${koszyk.suma}">Suma:</span>
+            </div>
+            <div th:each="pozycja: ${koszyk.pozycje}" class="box__basket">
+                <span th:text="'id: '+${pozycja.id_produkt}">1</span>
+                <span th:text="${pozycja.nazwa}">Nazwa produktu</span>
+                <span th:text="${pozycja.cena}+'zł'">cena</span>
+                <span th:text="'x'+${pozycja.ilosc}">ilosc</span>
+                <span th:text="${pozycja.ilosc * pozycja.cena} + 'zł'">suma</span>
+            </div>
+            <div class="box_button">
+                <button class="btn__basket">Złóż zamówienie</button>
+            </div>
+        </section>
         <div class="container__form">
             <div class="form__title">Dane do zamówienia</div>
-            <form action="#" class="form__customerData">
-                <label for="firstname">Imie:</label><input type="text" name="firstname">
-                <label for="lastname">Nazwisko:</label><input type="text" name="lastname">
-                <label for="email">E-mail</label><input type="email" name="email">
-                <label for="street">Ulica</label><input type="text" name="street">
-                <div class="form__numbers">
-                    <div>
-                        <label for="streetNumber">Numer budynku:</label><input type="text" name="streetNumber">
-                    </div>
-                    <div>
-                        <label for="homeNumber">Numer mieszkania:</label><input type="text" name="homeNumber">
-                    </div>
-                    <div>
-                        <label for="postalCode">Kod pocztowy:</label><input type="text" name="postalCode">
-                    </div>
-                </div>
-                <label for="country">Kraj</label><input type="text" name="country">
-                <label for="phoneNumber">Numer telefonu</label><input type="text" name="phoneNumber">
+            <form action="#" class="form__customerData"
+                  th:action="@{/sklep/zamawianie}" th:object="${dane}" method="post">
+                <label>Kod pocztowy:</label><input type="text" name="postalCode" th:field="*{kodPocztowy}">
+                <label>Miasto</label><input type="text" name="city" th:field="*{miasto}">
+                <label>Ulica</label><input type="text" name="street" th:field="*{ulica}">
+                <input id="btn__filtry" type="submit" value="Złóż zamówienie">
             </form>
         </div>
     </div>

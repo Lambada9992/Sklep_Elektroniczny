@@ -157,7 +157,6 @@ public class UslugiService {
     }
 
     public KoszykExt getKoszyk() {
-        //TODO zwracanie koszyka
         Uzytkownik user = getUser();
         if (user == null) return null;
 

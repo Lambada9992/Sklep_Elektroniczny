@@ -5,9 +5,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import pl.sklepelektroniczny.app.inModels.DaneZamowienia;
 import pl.sklepelektroniczny.app.model.Typ;
 import pl.sklepelektroniczny.app.outModels.*;
+import pl.sklepelektroniczny.app.repositories.CenaRepository;
 import pl.sklepelektroniczny.app.service.ProduktyService;
+import pl.sklepelektroniczny.app.service.RaportService;
 import pl.sklepelektroniczny.app.service.UslugiService;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
@@ -19,6 +22,9 @@ public class RestController {
 
     @Autowired
     UslugiService uslugiService;
+
+    @Autowired
+    RaportService raportService;
 
     @RequestMapping("/nadTyp")
     public List<Typ> nadTypy() {
@@ -94,6 +100,12 @@ public class RestController {
     @RequestMapping("/param")
     public List<ParametrExt> parametry() {
         return produktyService.getAllParametr(null);
+    }
+
+    @RequestMapping("/testy")
+    public String test(){
+        raportService.generateRaport1(Timestamp.valueOf("2018-09-01 09:01:16"),Timestamp.valueOf("2022-09-01 09:01:16"),null,null);
+        return "done";
     }
 
 }
